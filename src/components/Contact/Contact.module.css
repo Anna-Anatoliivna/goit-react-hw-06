@@ -1,0 +1,12 @@
+.list {
+  list-style: none;
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  padding-inline-start: 0px;
+  font-size: 20px;
+}
+.btn {
+  font-size: 20px;
+  border: 2px solid #6d6d6d;
+}
