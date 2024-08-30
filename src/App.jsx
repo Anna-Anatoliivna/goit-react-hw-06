@@ -5,8 +5,8 @@ import { ContactList } from './components/ContactList/ContactList';
 import { nanoid } from 'nanoid';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, deleteContact } from './redux/contacts/contactsReducer';
-import { setFilterValue } from './redux/filter/filterReducer';
+import { addContact, deleteContact } from './redux/contacts/contactsSlice';
+import { setFilterValue } from './redux/filter/filtersSlice';
 
 const App = () => {
   // const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem("contacts")) ??
@@ -39,10 +39,10 @@ const App = () => {
 
   const handleFilter = e => {
     const value = e.target.value;
-    const action = setFilterValue (value);
+    const action = setFilterValue(value);
     dispatch(action);
     // setFilterValue(value)
-    console.log(value);
+    // console.log(value);
   };
 
   const filteredContacts = contacts.filter(contact =>
