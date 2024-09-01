@@ -1,24 +1,34 @@
-import {Contact} from '../Contact/Contact'
-import styles from './ContactList.module.css'
+import { useSelector } from 'react-redux';
+import { Contact } from '../Contact/Contact';
+import styles from './ContactList.module.css';
+import { selectContacts } from '../../redux/contacts/contactsSlice';
+import { selectNameFilter } from '../../redux/filter/filtersSlice';
 
-export const ContactList = ({ contacts, onDelContact }) => {
+export const ContactList = () => {
+  const contacts = useSelector(selectContacts);
+  const filterValue = useSelector(selectNameFilter);
 
-       
-    return (
-        <div className={styles.box}>
-            <ul className={styles.list}>
-                {contacts.map(({ id, name, number }) => (
-                    <li className={styles.item} key={id}>
-                        <Contact
-                            // handleClick={handleClick}
-                            id={id}
-                            name={name}
-                            number={number}
-                            onDelContact={onDelContact}
-                        />
-                    </li>)
-                )}
-            </ul>
-        </div>
-    );
+  const filteredContacts = contacts.filter(contact => {
+    // Перевіряємо, чи є contact.name визначеним
+    if (contact.name) {
+      return contact.name.toLowerCase().includes(filterValue.toLowerCase());
+    }
+    return false;
+  });
+
+  return (
+    <div className={styles.box}>
+      <ul className={styles.list}>
+        {filteredContacts.map(({ id, name, number }) => (
+          <li className={styles.item} key={id}>
+            <Contact
+              id={id}
+              name={name}
+              number={number}
+              />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
